@@ -9,7 +9,6 @@ You can set the required parameters by creating an `.env` file in the service di
 ### The Microservice backend api, uses the REST API interface to accept request from the frontend part of the project
 
 ### Run service
-    cd backend_api
     uvicorn app:app --reload
 
 ### Documentation available on
