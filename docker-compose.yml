@@ -1,0 +1,38 @@
+version: "3.9"
+
+services:
+  db_postgres_doc:
+    image: postgres:14
+    restart: always
+    volumes:
+      - ./volumes-data/postgres-doc:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    env_file:
+      - .env
+    environment:
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+
+  app_backend_api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: app_backend_api
+    ports:
+      - "8000:8000"
+    restart: always
+    environment:
+      ALLOW_REDIRECT_SLASHES: 'false'
+      UVICORN_HOST: '0.0.0.0'
+      UVICORN_PORT: 8000
+      UVICORN_MAX_WORKERS: 2
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: 'doc'
+      POSTGRES_USER: 'postgres'
+      POSTGRES_SERVER: 'db_postgres_doc'
+    depends_on:
+      - db_postgres_doc
+
+volumes:
+  volumes-data:
+    driver: local

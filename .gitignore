@@ -1,0 +1,15 @@
+# Default ignored files
+.idea
+
+.vscode
+.Python
+
+*.env
+*.pyc
+*.crt
+
+venv
+docs
+secrets
+
+/workspace.xml
